@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/db/db.php';
 
-if (isset($pdo)){
-    echo "¡Conexión exitosa a la base de datos MySQL!";
-}
+require_once __DIR__ . '/vendor/autoload.php';
+
+require_once __DIR__ . '/lib/db/db.php';
+echo "Estructura maestra lista. El autoloader ya reconoce el namespace App\\.";

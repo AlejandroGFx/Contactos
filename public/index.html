@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Contactos</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 20px auto; }
+    form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .contacto { border-bottom: 1px solid #ccc; padding: 5px 0; }
+  </style>
+</head>
+<body>
+<h1>Nuevo Contacto</h1>
+<form id="formContacto">
+  <input type="text" id="name" placeholder="Nombre" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <button type="submit">Guardar</button>
+</form>
+
+<h1>Lista de Contactos</h1>
+<div id="lista"></div>
+
+<script>
+  const form = document.getElementById('formContacto');
+  const listaDiv = document.getElementById('lista');
+
+  // Función para cargar contactos
+  async function cargarContactos() {
+    const res = await fetch('api/list_contacts.php');
+    const contactos = await res.json();
+    listaDiv.innerHTML = contactos.map(c =>
+            `<div class="contacto"><strong>${c.name}</strong> - ${c.email}</div>`
+    ).join('');
+  }
+
+  // Evento para guardar
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value
+    };
+
+    const res = await fetch('api/create_contact.php', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (res.ok) {
+      form.reset();
+      cargarContactos();
+    }
+  };
+
+  cargarContactos();
+</script>
+</body>
+</html>

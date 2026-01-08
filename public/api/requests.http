@@ -1,0 +1,24 @@
+POST http://localhost:8000/api/create_contact.php
+Content-Type: application/json
+
+{
+  "name": "Alejandro",
+  "email": "alejandro@ejemplo.com"
+}
+
+###
+
+POST http://localhost:8000/api/create_contact.php
+Content-Type: application/json
+
+{
+  "name": "a",
+  "email": "alejandro@ejemplo.com"
+}
+
+###
+
+GET http://localhost:8000/api/list_contacts.php
+Content-Type: application/json
+
+
